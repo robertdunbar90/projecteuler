@@ -11,6 +11,8 @@ class solve549
         sValues[1] = 0;
         for (int i=2; i<=top; i++)
             sValues[i] = 1;
+		
+		long sum = 0;
         
         for (int i=2; i<=top; i++)
         {
@@ -22,7 +24,7 @@ class solve549
 					int count = 0;
 					int copy = j*i;
 					int newValue = 0;
-					int k = 1;
+					int k = 0;
 					while (copy%i == 0)
 					{
 						count++;
@@ -30,6 +32,7 @@ class solve549
 					}
 					while (count > 0)
 					{
+						k++;
 						int kCopy = k;
 						while (kCopy%i == 0)
 						{
@@ -37,9 +40,6 @@ class solve549
 							kCopy /= i;
 						}
 						count--;
-						if (count <= 0)
-							break;
-						k++;
 					}
 					
 					newValue = k*i;
@@ -48,14 +48,7 @@ class solve549
                     j++;
                 }
             }
-        }
-
-        long sum = 0;
-        
-        for (int i=0; i<=top; i++)
-        {
-            // System.out.println("s(" + i + ") = " + sValues[i]);
-            sum += (long)sValues[i];
+			sum += (long)sValues[i];
         }
 
         System.out.println("total = " + sum);
