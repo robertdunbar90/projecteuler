@@ -1,6 +1,6 @@
 class solve549
 {
-    static int top = 100;
+    static int top = 100000000;
     static int[] sValues = new int[top+1];
    
     public static void main(String[] args)
@@ -19,20 +19,30 @@ class solve549
                 int j=1;
                 while (j*i <= top)
                 {
-                    int newValue = i;
-                    int copy = j;
-                    int count = 1;
-                    while (copy > 1 && copy%i == 0)
-                    {
-                        while (newValue > 1 && newValue%i == 0)
-                        {
-                            newValue /= i;
-                            copy /= i;
-                        }
-                        copy /= i;
-                        count++;
-                        newValue = i*count;
-                    }
+					int count = 0;
+					int copy = j*i;
+					int newValue = 0;
+					int k = 1;
+					while (copy%i == 0)
+					{
+						count++;
+						copy /= i;
+					}
+					while (count > 0)
+					{
+						int kCopy = k;
+						while (kCopy%i == 0)
+						{
+							count--;
+							kCopy /= i;
+						}
+						count--;
+						if (count <= 0)
+							break;
+						k++;
+					}
+					
+					newValue = k*i;
                     if (sValues[j*i] < newValue)
                         sValues[j*i] = newValue;
                     j++;
@@ -40,12 +50,12 @@ class solve549
             }
         }
 
-        int sum = 0;
+        long sum = 0;
         
         for (int i=0; i<=top; i++)
         {
-            System.out.println("s(" + i + ") = " + sValues[i]);
-            sum += sValues[i];
+            // System.out.println("s(" + i + ") = " + sValues[i]);
+            sum += (long)sValues[i];
         }
 
         System.out.println("total = " + sum);
